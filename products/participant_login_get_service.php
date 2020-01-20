@@ -26,8 +26,7 @@ if($num>0){
         extract($row);
         $product_item=array(
             "email" => $email,
-            "first_name" => $first_name,
-            "last_name" => $last_name,
+            "full_name" => $full_name,
             "department" => $department,
             "year" => $year,
             "college" => $college,

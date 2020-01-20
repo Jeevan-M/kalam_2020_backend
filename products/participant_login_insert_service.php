@@ -20,9 +20,10 @@ $participant_login_insert = new participant_login($db);
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
+
+
 if( !empty($data->email)&&
-    !empty($data->first_name)&&
-    !empty($data->last_name)&&
+    !empty($data->full_name)&&
     !empty($data->department)&&
     !empty($data->year)&&
     !empty($data->college)&&
@@ -30,8 +31,7 @@ if( !empty($data->email)&&
     !empty($data->mob_no)){
         
     $participant_login_insert->email = $data->email;
-    $participant_login_insert->first_name = $data->first_name;
-    $participant_login_insert->last_name = $data->last_name;
+    $participant_login_insert->full_name = $data->full_name;
     $participant_login_insert->department = $data->department;
     $participant_login_insert->year = $data->year;
     $participant_login_insert->college = $data->college;

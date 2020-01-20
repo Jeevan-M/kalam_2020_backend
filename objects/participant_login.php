@@ -8,8 +8,7 @@ class participant_login{
 
     //object properties
     public $email;
-    public $first_name;
-    public $last_name;
+    public $full_name;
     public $department;
     public $year;
     public $college;
@@ -40,8 +39,7 @@ class participant_login{
          $query = "INSERT INTO    " . $this->table_name ."
                  SET
                       email=:email,
-                      first_name=:first_name,
-                      last_name=:last_name,
+                      full_name=:full_name,
                       department=:department,
                       year=:year,
                       college=:college,
@@ -53,8 +51,7 @@ class participant_login{
      
          // sanitize
          $this->email=htmlspecialchars(strip_tags($this->email));
-         $this->first_name=htmlspecialchars(strip_tags($this->first_name));
-         $this->last_name=htmlspecialchars(strip_tags($this->last_name));
+         $this->full_name=htmlspecialchars(strip_tags($this->full_name));
          $this->department=htmlspecialchars(strip_tags($this->department));
          $this->year=htmlspecialchars(strip_tags($this->year));
          $this->college=htmlspecialchars(strip_tags($this->college));
@@ -65,8 +62,7 @@ class participant_login{
      
          // bind new values
          $stmt->bindParam(":email", $this->email);
-         $stmt->bindParam(":first_name", $this->first_name);
-         $stmt->bindParam(":last_name", $this->last_name);
+         $stmt->bindParam(":full_name", $this->full_name);
          $stmt->bindParam(":department", $this->department);
          $stmt->bindParam(":year", $this->year);
          $stmt->bindParam(":college", $this->college);
@@ -78,9 +74,9 @@ class participant_login{
          if($stmt->execute()){
              return true;
          }
-         return false;  
-     }
-    
+            return false;
 
+        
+    }
 }
 ?>

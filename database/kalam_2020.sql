@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 20, 2020 at 11:25 AM
+-- Generation Time: Jan 20, 2020 at 11:47 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -31,8 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `participant_login` (
   `login_id` int(11) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `first_name` varchar(30) NOT NULL,
-  `last_name` varchar(30) NOT NULL,
+  `full_name` varchar(30) NOT NULL,
   `department` varchar(20) NOT NULL,
   `year` varchar(10) NOT NULL,
   `college` varchar(40) NOT NULL,
@@ -45,13 +44,11 @@ CREATE TABLE `participant_login` (
 -- Dumping data for table `participant_login`
 --
 
-INSERT INTO `participant_login` (`login_id`, `email`, `first_name`, `last_name`, `department`, `year`, `college`, `password`, `status`, `mob_no`) VALUES
-(1, 'Jeevan@gmail.com', 'Jeevan', 'M', 'cse', '3rd', 'SIET', 'pwd', 1, 987654321),
-(2, 'Jeevan001@gmail.com', 'Jeevan', 'M', 'cse', '3rd', 'SIET', 'pwd', 1, 987654321),
-(3, 'Jeevan0022@gmail.com', 'Jeevan', 'M', 'cse', '3rd', 'SIET', 'pwd', 1, 987654321),
-(4, '22@gmail.com', 'Jeevan', 'M', 'cse', '3rd', 'SIET', 'pwasdasdasdasdd', 1, 987654321),
-(5, '22asd@gmail.com', 'Jeevan', 'M', 'cse', '3rd', 'SIET', 'pwasdasdasdasdd', 1, 987654321),
-(6, '22asd@gmail.com', 'Jeevan', 'M', 'cse', '3rd', 'SIET', 'pwasdasdasdasdd', 1, 987654321);
+INSERT INTO `participant_login` (`login_id`, `email`, `full_name`, `department`, `year`, `college`, `password`, `status`, `mob_no`) VALUES
+(1, 'Jeevan@gmail.com', 'Jeevan', 'cse', '3rd', 'SIET', 'pwd', 1, 987654321),
+(2, 'samcladson@gmail.com', 'samcladson', 'cse', '3rd', 'SIET', 'pwd', 1, 98754321),
+(3, 'raghul@gmail.com', 'raghul', 'cse', '3rd', 'SIET', 'pwd', 1, 987543211),
+(4, 'venki@gmail.com', 'venki', 'cse', '3rd', 'SIET', 'pwd', 1, 987543211);
 
 --
 -- Indexes for dumped tables
@@ -71,7 +68,7 @@ ALTER TABLE `participant_login`
 -- AUTO_INCREMENT for table `participant_login`
 --
 ALTER TABLE `participant_login`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
