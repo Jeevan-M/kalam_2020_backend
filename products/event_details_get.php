@@ -1,0 +1,57 @@
+<?php
+// required headers
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Max-Age: 3600");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+include_once '../config/db_connection.php';
+include_once '../objects/events_details.php';
+
+$database = new Database();
+$db = $database->getConnection();
+
+$events_details_get = new events_details($db);
+
+$stmt = $events_details_get->read();
+$num = $stmt->rowCount();
+
+if($num>0){ 
+
+    $products_arr=array();
+    $products_arr["events_details_get"]=array();
+ 
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+        $product_item=array(
+            "event_date" => $event_date,
+            "category" => $category,
+            "event_name_id_main" => $event_name_id_main,
+            "event_name_id" => $event_name_id,
+            "event_name" => $event_name,
+            "description" => $description,
+            "event_rules" => $event_rules,
+            "student_coordinator_name" => $student_coordinator_name,
+            "student_coordinator_number" => $student_coordinator_number,
+            "staff_coordinator_name" => $staff_coordinator_name,
+            "staff_coordinator_number" => $staff_coordinator_number,
+            "event_time" => $event_time,
+            "venue" => $venue,
+            "status" => $status,
+
+        );
+        array_push($products_arr["events_details_get"], $product_item);
+    }
+     http_response_code(200);
+     echo json_encode($products_arr);
+}
+ 
+else{
+    http_response_code(404);
+     echo json_encode(
+        array("message" => "No services found.")
+    );
+}
+
+?>

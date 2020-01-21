@@ -32,6 +32,19 @@ class participant_login{
            $stmt->execute();
            return $stmt;
        }
+       
+       function read_one($email){
+ 
+        $query = "SELECT
+                       *
+                   FROM
+                       " . $this->table_name . "
+                    WHERE  email = '".$email."'";
+        
+           $stmt = $this->conn->prepare($query);
+           $stmt->execute();
+           return $stmt;
+    }
 
     function create(){
         // try {
