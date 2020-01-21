@@ -46,6 +46,21 @@ class participant_login{
            return $stmt;
     }
 
+    function login($email,$password){
+
+        //SELECT * FROM `participant_login` WHERE email = 'Jeevan@gmail.com' AND password = 'pwd'
+        $query = "SELECT
+                       *
+                   FROM
+                       " . $this->table_name . "
+                    WHERE  email = '".$email."'
+                    AND password = '".$password."'";
+        
+           $stmt = $this->conn->prepare($query);
+           $stmt->execute();
+           return $stmt;
+    }
+
     function create(){
         // try {
       

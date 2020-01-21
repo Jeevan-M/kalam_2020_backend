@@ -12,20 +12,21 @@ include_once '../objects/participant_login.php';
 $database = new Database();
 $db = $database->getConnection();
 
-$participant_login_profile = new participant_login($db);
+$participant_login_user = new participant_login($db);
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
     $data = json_decode(file_get_contents("php://input"));
     $email = $data->email;
-    $stmt = $participant_login_profile->read_one($email);
+    $password = $data->password;
+    $stmt = $participant_login_user->read_one($email,$password);
     $num = $stmt->rowCount();
 
     if($num>0){ 
 
         $products_arr=array();
-        $products_arr["participant_login_profile"]=array();
+        $products_arr["participant_login_user"]=array();
     
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
@@ -40,10 +41,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 "mob_no" => $mob_no
 
             );
-            array_push($products_arr["participant_login_profile"], $product_item);
+            array_push($products_arr["participant_login_user"], $product_item);
         }
         http_response_code(200);
         echo json_encode($products_arr);
+        echo json_encode(array('message' => 'Successfully login'));
     }
     
     else{
