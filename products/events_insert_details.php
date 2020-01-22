@@ -21,21 +21,11 @@ $events_details_insert = new events_details($db);
 $data = json_decode(file_get_contents("php://input"));
 
 
-
-if( !empty($data->event_date)&&
-    !empty($data->category)&&
-    !empty($data->event_name_id_main)&&
-    !empty($data->status)){
+if( !empty($data->admin_id)&&
+    !empty($data->category)){
         
-    $events_details_insert->event_date = $data->event_date;
-    $events_details_insert->category = $data->category;
-    $events_details_insert->event_name_id_main = $data->event_name_id_main;
-    $events_details_insert->status = 1;
-    
-    // create the events_details_insert
-    if($events_details_insert->create_events_id()){
-
-        $events_details_insert->event_name_id = $data->event_name_id_main;
+        $events_details_insert->admin_id = $data->admin_id;
+        $events_details_insert->category = $data->category;
         $events_details_insert->event_name = $data->event_name;
         $events_details_insert->description = $data->description;
         $events_details_insert->event_rules = $data->event_rules;
@@ -43,25 +33,20 @@ if( !empty($data->event_date)&&
         $events_details_insert->student_coordinator_number = $data->student_coordinator_number;
         $events_details_insert->staff_coordinator_name = $data->staff_coordinator_name;
         $events_details_insert->staff_coordinator_number = $data->staff_coordinator_number;
-        $events_details_insert->event_time = $data->event_time;
+        $events_details_insert->event_date = $data->event_date;
+        $events_details_insert->event_start_time = $data->event_start_time;
+        $events_details_insert->event_end_time = $data->event_end_time;
         $events_details_insert->venue = $data->venue;
         $events_details_insert->status = 1;
-        
-        
-        if ($events_details_insert->create_events_details()){
-            //insert
-            // set response code - 201 created
-            http_response_code(201);
-            echo json_encode(array("message" => "events_details_insert was created."));  
-            
-        }else{
-            http_response_code(503);
-        }
+    
+    // create the events_details_insert
+    if($events_details_insert->create_events_details()){
+ 
     // set response code - 201 created
     http_response_code(201);
 
     // tell the user
-        echo json_encode(array("message"=> "Main functions"));
+    echo json_encode(array("message" => "events_details_insert was created."));  
     }
     // if unable to create the events_details_insert, tell the user
     else{

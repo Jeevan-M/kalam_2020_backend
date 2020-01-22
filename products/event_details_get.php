@@ -25,10 +25,8 @@ if($num>0){
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         extract($row);
         $product_item=array(
-            "event_date" => $event_date,
+            "admin_id" => $admin_id,
             "category" => $category,
-            "event_name_id_main" => $event_name_id_main,
-            "event_name_id" => $event_name_id,
             "event_name" => $event_name,
             "description" => $description,
             "event_rules" => $event_rules,
@@ -36,7 +34,9 @@ if($num>0){
             "student_coordinator_number" => $student_coordinator_number,
             "staff_coordinator_name" => $staff_coordinator_name,
             "staff_coordinator_number" => $staff_coordinator_number,
-            "event_time" => $event_time,
+            "event_date" => $event_date,
+            "event_start_time" => $event_start_time,
+            "event_end_time" => $event_end_time,
             "venue" => $venue,
             "status" => $status,
 
