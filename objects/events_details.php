@@ -30,8 +30,6 @@ class events_details{
         $this->conn = $db;
     }
 
-
-    
     function read_one($admin_id){
  
         $query = "SELECT
