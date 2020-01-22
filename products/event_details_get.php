@@ -38,7 +38,7 @@ if($num>0){
             "event_start_time" => $event_start_time,
             "event_end_time" => $event_end_time,
             "venue" => $venue,
-            "status" => $status,
+            "status" => $status
 
         );
         array_push($products_arr["events_details_get"], $product_item);

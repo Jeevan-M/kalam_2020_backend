@@ -30,6 +30,21 @@ class events_details{
         $this->conn = $db;
     }
 
+
+    
+    function read_one($admin_id){
+ 
+        $query = "SELECT
+                       *
+                   FROM
+                       " . $this->table_name . "
+                    WHERE  admin_id = '".$admin_id."'";
+        
+           $stmt = $this->conn->prepare($query);
+           $stmt->execute();
+           return $stmt;
+    }
+
     function read(){
  
         $query = "SELECT

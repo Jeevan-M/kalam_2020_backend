@@ -5,6 +5,8 @@ class Registration{
     // Database Connection
     private $conn;
     private $table_name = 'events_registration';
+    private $event_table = 'event_details';
+    private $participant_table = 'participant_login';
 
     //object properties
     public $email;
@@ -44,6 +46,15 @@ class Registration{
            return $stmt;
     }
 
+    function event_registration(){
+        $query = "SELECT
+                       *
+                   FROM
+                       " . $this->event_table . ',' .$this->participant_table ;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
       
 
     function create(){

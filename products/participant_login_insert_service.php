@@ -34,7 +34,7 @@ if( !empty($data->email)&&
     
 
     if ($participant_login_insert->signup($email)){
-        
+        $participant_login_insert->kalam_id=$data->kalam_id;
         $participant_login_insert->email = $data->email;
         $participant_login_insert->full_name = $data->full_name;
         $participant_login_insert->department = $data->department;
