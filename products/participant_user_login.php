@@ -20,10 +20,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $data = json_decode(file_get_contents("php://input"));
     $email = $data->email;
     $password = $data->password;
-    $stmt = $participant_login_user->read_one($email,$password);
+    $stmt = $participant_login_user->login($email,$password);
     $num = $stmt->rowCount();
 
-    if($num>0){ 
+    if($num==1){ 
 
         $products_arr=array();
         $products_arr["participant_login_user"]=array();
@@ -49,7 +49,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     else{
-        http_response_code(404);
+        http_response_code(200);
         echo json_encode(
             array("message" => "No services found.")
         );

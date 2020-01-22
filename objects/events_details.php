@@ -8,7 +8,7 @@ class events_details{
     private $table_name = 'event_details';
 
     //object properties
-    public $event_date;
+    public $admin_id;
     public $category;
     public $event_name_id_main;
     public $event_name_id;
@@ -19,7 +19,9 @@ class events_details{
     public $student_coordinator_number;
     public $staff_coordinator_name;
     public $staff_coordinator_number;
-    public $event_time;
+    public $event_date;
+    public $event_start_time;
+    public $event_end_time;
     public $venue;
     public $status;
 
@@ -45,7 +47,7 @@ class events_details{
     function create_events_details(){
         // try {
       
-         $query = "INSERT INTO    " . $this->sub_table_name ."
+         $query = "INSERT INTO    " . $this->table_name ."
                  SET
                       admin_id=:admin_id,
                       category=:category,
@@ -103,5 +105,74 @@ class events_details{
          }
             return false;
     }
+
+    function update(){
+ 
+        // update query
+        $query = "UPDATE
+                    " . $this->table_name . "
+                SET
+                admin_id=:admin_id,
+                category=:category,
+                event_name=:event_name,
+                description=:description,
+                event_rules=:event_rules,
+                student_coordinator_name=:student_coordinator_name,
+                student_coordinator_number=:student_coordinator_number,
+                staff_coordinator_name=:staff_coordinator_name,
+                staff_coordinator_number=:staff_coordinator_number,
+                event_date=:event_date,
+                event_start_time=:event_start_time,
+                event_end_time=:event_end_time,
+                venue =:venue,
+                status =:status
+                WHERE
+                admin_id=:admin_id";
+     
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+     
+         // sanitize
+         $this->admin_id=htmlspecialchars(strip_tags($this->admin_id));
+         $this->category=htmlspecialchars(strip_tags($this->category));
+         $this->event_name=htmlspecialchars(strip_tags($this->event_name));
+         $this->description=htmlspecialchars(strip_tags($this->description));
+         $this->event_rules=htmlspecialchars(strip_tags($this->event_rules));
+         $this->student_coordinator_name=htmlspecialchars(strip_tags($this->student_coordinator_name));
+         $this->student_coordinator_number=htmlspecialchars(strip_tags($this->student_coordinator_number));
+         $this->staff_coordinator_name=htmlspecialchars(strip_tags($this->staff_coordinator_name));
+         $this->staff_coordinator_number=htmlspecialchars(strip_tags($this->staff_coordinator_number));
+         $this->event_date=htmlspecialchars(strip_tags($this->event_date));
+         $this->event_start_time=htmlspecialchars(strip_tags($this->event_start_time));
+         $this->event_end_time=htmlspecialchars(strip_tags($this->event_end_time));
+         $this->venue=htmlspecialchars(strip_tags($this->venue));
+         $this->status=htmlspecialchars(strip_tags($this->status));
+        
+     
+         // bind new values
+         $stmt->bindParam(":admin_id", $this->admin_id);
+         $stmt->bindParam(":category", $this->category);
+         $stmt->bindParam(":event_name", $this->event_name);
+         $stmt->bindParam(":description", $this->description);
+         $stmt->bindParam(":event_rules", $this->event_rules);
+         $stmt->bindParam(":student_coordinator_name",$this->student_coordinator_name);
+         $stmt->bindParam(":student_coordinator_number",$this->student_coordinator_number);
+         $stmt->bindParam(":staff_coordinator_name",$this->staff_coordinator_name);
+         $stmt->bindParam(":staff_coordinator_number",$this->staff_coordinator_number);
+         $stmt->bindParam(":event_date", $this->event_date);
+         $stmt->bindParam(":event_start_time",$this->event_start_time);
+         $stmt->bindParam(":event_end_time",$this->event_end_time);
+         $stmt->bindParam(":venue",$this->venue);
+         $stmt->bindParam(":status", $this->status);
+     
+    
+        // execute the query
+        if($stmt->execute()){
+            return true;
+        }
+     
+        return false;
+    }
+    
 }
 ?>
