@@ -31,7 +31,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
             $product_item=array(
-                "kalam_id"=>$kalam_id,
+                "Kalam_id"=>$Kalam_id,
                 "email" => $email,
                 "full_name" => $full_name,
                 "department" => $department,

@@ -34,7 +34,7 @@ if( !empty($data->email)&&
     
 
     if ($participant_login_insert->signup($email)){
-        $participant_login_insert->kalam_id=$data->kalam_id;
+        $participant_login_insert->Kalam_id=$data->Kalam_id;
         $participant_login_insert->email = $data->email;
         $participant_login_insert->full_name = $data->full_name;
         $participant_login_insert->department = $data->department;
@@ -63,12 +63,11 @@ if( !empty($data->email)&&
                 echo json_encode(array("message" => "Unable to create participant_login_insert."));
             }
 
-    }else:
+    }else{
         http_response_code(200);
         echo json_encode(array("message" => "User already exist."));
     
-    // create the participant_login_insert
-   
+    }
 }
 // tell the user data is incomplete
 else{

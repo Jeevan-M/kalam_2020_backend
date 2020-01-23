@@ -13,12 +13,9 @@ $database = new Database();
 $db = $database->getConnection();
 
 $events_details_create = new events_details($db);
+$data = json_decode(file_get_contents("php://input"));
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-    $data = json_decode(file_get_contents("php://input"));
-
-    if( !empty($data->admin_id)&&
+if( !empty($data->admin_id)&&
     !empty($data->category)){
         
         $events_details_create->admin_id = $data->admin_id;
@@ -40,35 +37,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($events_details_create->create_events_details()){
  
     // set response code - 201 created
-    http_response_code(201);
+        http_response_code(201);
 
     // tell the user
-    echo json_encode(array("message" => "events_details_create was created."));  
+        echo json_encode(array("status"=> "201"));  
     }
     // if unable to create the events_details_create, tell the user
-    else{
+        else{
 
         // set response code - 503 service unavailable
-        http_response_code(503);
-        echo json_encode(array("events_details_create" => $events_details_create));
+            http_response_code(503);
+            echo json_encode(array("status"=> "503"));
+
 
         // tell the user
-        echo json_encode(array("message" => "Unable to create events_details_create."));
-    }
+        
+        }
     }else{
         http_response_code(404);
-        echo json_encode(
-            array("meta" => array(
-            "code" => "404",
-            "status"=>"Not Found",
-            "DetailedMessage"=> "Client Error"),
-            ));
+        echo json_encode(array("status"=> "404"));
+
 }
-}else
-echo json_encode(
-    array("meta" => array(
-    "METHOD "=>"POST",
-    "DetailedMessage"=> "Client Error"),
-    ));
 
 ?>

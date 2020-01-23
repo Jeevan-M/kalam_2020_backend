@@ -10,8 +10,6 @@ class events_details{
     //object properties
     public $admin_id;
     public $category;
-    public $event_name_id_main;
-    public $event_name_id;
     public $event_name;
     public $description;
     public $event_rules;
@@ -140,7 +138,7 @@ class events_details{
                 venue =:venue,
                 status =:status
                 WHERE
-                admin_id=:admin_id";
+                event_name=:event_name";
      
         // prepare query statement
         $stmt = $this->conn->prepare($query);
