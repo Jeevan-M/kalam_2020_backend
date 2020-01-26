@@ -36,17 +36,15 @@ class participant_login{
        
        function signup($email){
         $query = "SELECT
-                        *
+                      email 
                     FROM
                         " . $this->table_name . "
                     WHERE  email = '".$email."'";
 
             $stmt = $this->conn->prepare($query);
-            if($stmt->execute()){
-                return true;
-            }
-         
-            return false;
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $this->email = $row['email'];
         }
             
 

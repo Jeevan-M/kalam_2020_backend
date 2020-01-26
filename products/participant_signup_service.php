@@ -19,7 +19,7 @@ $participant_login_insert = new participant_login($db);
  
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
-$email = $data->email;
+$get_email = $data->email;
 
 
 if( !empty($data->email)&&
@@ -29,8 +29,8 @@ if( !empty($data->email)&&
     !empty($data->college)&&
     !empty($data->password)&&
     !empty($data->mob_no)){
-
-    if ($participant_login_insert->signup($email)){
+    $participant_login_insert->signup($get_email);
+    if ($participant_login_insert->email != $data->email){
         $participant_login_insert->Kalam_id=$data->Kalam_id;
         $participant_login_insert->email = $data->email;
         $participant_login_insert->full_name = $data->full_name;
@@ -40,35 +40,29 @@ if( !empty($data->email)&&
         $participant_login_insert->password = $data->password;
         $participant_login_insert->status = $data->status;
         $participant_login_insert->mob_no = $data->mob_no;
+       
 
         if($participant_login_insert->create()){
  
             // set response code - 201 created
             http_response_code(201);
-        
+           
             // tell the user
-            echo json_encode(array("status"=>"201","message" => "participant_login_insert was created."));  
-            }
-            // if unable to create the participant_login_insert, tell the user
-            else{
-        
+            echo json_encode(array("status"=>"201","message" => "Your Signup is successfull.."));  
+            }else{
                 // set response code - 503 service unavailable
                 http_response_code(503);
                 // tell the user
-                echo json_encode(array("status"=>"503","message" => "Oops! Your Registration is unsuccessfull."));
+                echo json_encode(array("status"=>"503","message" => "Oops! Your Signup is unsuccessfull."));
             }
-
     }else{
         http_response_code(400);
         echo json_encode(array("status"=>"400","message" => "User already exist."));
-    
     }
 }else{
-
     // set response code - 400 bad request
-    http_response_code(400);
+    http_response_code(406);
     // tell the user
-    echo json_encode(array("status"=>"400","message" => "Unable to create participant_login_insert. Data is incomplete."));
-
+    echo json_encode(array("status"=>"406","message" => "Unable to create participant_login_insert. Data is incomplete."));
 }
 ?>

@@ -82,6 +82,18 @@ class Registration{
            $row = $stmt->fetch(PDO::FETCH_ASSOC);
            return $row['count'];
     }
+
+    function check_event_already_registered($Kalam_id,$event_id){
+        $query = "SELECT
+                      Kalam_id,event_id
+                   FROM
+                       " . $this->events_registration . " WHERE  Kalam_id = '".$Kalam_id."' AND event_id = '".$event_id."'";
+           $stmt = $this->conn->prepare($query);
+           $stmt->execute();
+           $row = $stmt->fetch(PDO::FETCH_ASSOC);
+           $this->event_id = $row['event_id'];
+
+    }
     
 
 
