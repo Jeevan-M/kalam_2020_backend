@@ -44,7 +44,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             array_push($products_arr["participant_login_profile"], $product_item);
         }
         http_response_code(200);
-        echo json_encode("status"=>"200","message" => "participant_login_profile");
+        echo json_encode($products_arr);
     }
     
     else{

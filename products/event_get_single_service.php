@@ -49,7 +49,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             array_push($products_arr["events_details_profile"], $product_item);
         }
         http_response_code(200);
-        echo json_encode("status"=>"200","message" => "Get single Event");
+        echo json_encode($products_arr);
     }
     
     else{
