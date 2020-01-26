@@ -20,9 +20,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $count = (int)$Registration_user->check_event_count($get_Kalam_id);
     if($count<5 and $count>=0){
         $Registration_user->check_event_already_registered($get_Kalam_id,$get_event_id);
-        
         if($Registration_user->event_id != $data->event_id){
-            
            if($Registration_user->event_and_Kalam_id_check($get_Kalam_id,$get_event_id)){
                 $stmt = $Registration_user->event_registration($get_Kalam_id,$get_event_id);
                 $num = $stmt->rowCount();
@@ -96,7 +94,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }else{
             http_response_code(406);
             echo json_encode(array("status"=>"406","message" => " You already Registration This Event."));
-            
         }
     }else{
         http_response_code(302);

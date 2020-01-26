@@ -4,7 +4,8 @@ class participant_login{
 
     // Database Connection
     private $conn;
-    private $table_name = 'participant_login';
+    private $participant_login = 'participant_login';
+    private $events_registration = 'events_registration';
 
     //object properties
     public $email;
@@ -27,7 +28,7 @@ class participant_login{
         $query = "SELECT
                        *
                    FROM
-                       " . $this->table_name;
+                       " . $this->participant_login;
         
            $stmt = $this->conn->prepare($query);
            $stmt->execute();
@@ -38,7 +39,7 @@ class participant_login{
         $query = "SELECT
                       email 
                     FROM
-                        " . $this->table_name . "
+                        " . $this->participant_login . "
                     WHERE  email = '".$email."'";
 
             $stmt = $this->conn->prepare($query);
@@ -46,21 +47,26 @@ class participant_login{
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             $this->email = $row['email'];
         }
+    
+
             
+        function read_one($email){
+           $query = "SELECT 
+           events_registration.*,
+           participant_login.department,
+           participant_login.year
+           FROM 
+           participant_login INNER JOIN events_registration
+           WHERE 
+           participant_login.email ='".$email."'
+           AND 
+           events_registration.email ='".$email."'";
 
-
-       function read_one($email){
- 
-        $query = "SELECT
-                       *
-                   FROM
-                       " . $this->table_name . "
-                    WHERE  email = '".$email."'";
-        
            $stmt = $this->conn->prepare($query);
            $stmt->execute();
            return $stmt;
-    }
+        }
+
 
     function login($email,$password){
 
@@ -68,7 +74,7 @@ class participant_login{
         $query = "SELECT
                        *
                    FROM
-                       " . $this->table_name . "
+                       " . $this->participant_login . "
                     WHERE  email = '".$email."'
                     AND password = '".$password."'";
         
@@ -80,7 +86,7 @@ class participant_login{
     function create(){	
         // try {	
 
-         $query = "INSERT INTO    " . $this->table_name ."	
+         $query = "INSERT INTO    " . $this->participant_login ."	
                  SET	
                       Kalam_id=:Kalam_id,
                       email=:email,	

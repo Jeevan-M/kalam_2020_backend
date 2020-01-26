@@ -20,12 +20,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $password = $data->password;
     $stmt = $participant_login_user->login($email,$password);
     $num = $stmt->rowCount();
-
     if($num==1){ 
-
         $products_arr=array();
-        $products_arr["participant_login_user"]=array();
-    
+        $products_arr["participant_login_user"]=array();   
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
             $product_item=array(
@@ -38,7 +35,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 "password" => $password,
                 "status" => $status,
                 "mob_no" => $mob_no
-
             );
             array_push($products_arr["participant_login_user"], $product_item);
         }
@@ -49,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     else{
         http_response_code(404);
         echo json_encode(
-            array("status"=>"404","message" => "No services found.")
+            array("status"=>"404","message" => "Login Unsuccessfully.")
         );
     }
 }
@@ -57,5 +53,4 @@ else{
     http_response_code(405);
     echo json_encode(array("status"=>"405","message"=>"Method Not Allowed"));
 }
-
 ?>
