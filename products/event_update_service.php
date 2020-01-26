@@ -24,6 +24,7 @@ $events_details_update = new events_details($db);
 $data = json_decode(file_get_contents("php://input"));
 
         $events_details_update->admin_id = $data->admin_id;
+        $events_details_update->event_id = $data->event_id;     
         $events_details_update->category = $data->category;
         $events_details_update->event_name = $data->event_name;
         $events_details_update->description = $data->description;
@@ -45,7 +46,8 @@ if($events_details_update->update()){
     http_response_code(200);
  
     // tell the user
-    echo json_encode(array("message" => "events_details_update was updated."));
+    echo json_encode(array("status" => "200","message" => "events_details_update was updated."));
+    //(echo json_encode(array());
 }
  
 // if unable to update the product, tell the user
@@ -53,9 +55,9 @@ else{
  
     // set response code - 503 service unavailable
     http_response_code(503);
- 
+    echo json_encode(array("status" => "503","message" => "Unable to update events_details_update."));
     // tell the user
-    echo json_encode(array("message" => "Unable to update events_details_update."));
+    //echo json_encode(array("message" => "Unable to update events_details_update."));
 }
 
 ?>

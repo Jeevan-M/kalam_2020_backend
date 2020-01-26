@@ -39,13 +39,13 @@ if($num>0){
         array_push($products_arr["participant_login_get"], $product_item);
     }
      http_response_code(200);
-     echo json_encode($products_arr);
+     echo json_encode("status"=>"200","message" => "Get All Participant List");
 }
  
 else{
     http_response_code(404);
      echo json_encode(
-        array("message" => "No services found.")
+        array("status"=>"404","message" => "No services found.")
     );
 }
 

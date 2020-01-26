@@ -44,23 +44,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             array_push($products_arr["participant_login_profile"], $product_item);
         }
         http_response_code(200);
-        echo json_encode($products_arr);
+        echo json_encode("status"=>"200","message" => "participant_login_profile");
     }
     
     else{
         http_response_code(404);
-        echo json_encode(
-            array("message" => "No services found.")
+        echo json_encode(array("status"=>"404","message" => "No services found.")
         );
     }
 }
 else{
     http_response_code(405);
-    echo json_encode(
-        array("meta" => array(
-        "code" => "405",
-        "status"=>"Method Not Allowed"),
-        ));
+    echo json_encode(array("status"=>"405","status"=>"Method Not Allowed"));
 }
 
 ?>

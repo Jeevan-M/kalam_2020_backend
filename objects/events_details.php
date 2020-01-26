@@ -9,6 +9,7 @@ class events_details{
 
     //object properties
     public $admin_id;
+    public $event_id;
     public $category;
     public $event_name;
     public $description;
@@ -61,6 +62,7 @@ class events_details{
          $query = "INSERT INTO    " . $this->table_name ."
                  SET
                       admin_id=:admin_id,
+                      event_id=:event_id,
                       category=:category,
                       event_name=:event_name,
                       description=:description,
@@ -79,6 +81,7 @@ class events_details{
      
          // sanitize
          $this->admin_id=htmlspecialchars(strip_tags($this->admin_id));
+         $this->event_id=htmlspecialchars(strip_tags($this->event_id));
          $this->category=htmlspecialchars(strip_tags($this->category));
          $this->event_name=htmlspecialchars(strip_tags($this->event_name));
          $this->description=htmlspecialchars(strip_tags($this->description));
@@ -96,6 +99,7 @@ class events_details{
      
          // bind new values
          $stmt->bindParam(":admin_id", $this->admin_id);
+         $stmt->bindParam(":event_id", $this->event_id);
          $stmt->bindParam(":category", $this->category);
          $stmt->bindParam(":event_name", $this->event_name);
          $stmt->bindParam(":description", $this->description);
@@ -124,6 +128,7 @@ class events_details{
                     " . $this->table_name . "
                 SET
                 admin_id=:admin_id,
+                event_id=:event_id,
                 category=:category,
                 event_name=:event_name,
                 description=:description,
@@ -138,13 +143,14 @@ class events_details{
                 venue =:venue,
                 status =:status
                 WHERE
-                event_name=:event_name";
+                event_id=:event_id";
      
         // prepare query statement
         $stmt = $this->conn->prepare($query);
      
          // sanitize
          $this->admin_id=htmlspecialchars(strip_tags($this->admin_id));
+         $this->event_id=htmlspecialchars(strip_tags($this->event_id));
          $this->category=htmlspecialchars(strip_tags($this->category));
          $this->event_name=htmlspecialchars(strip_tags($this->event_name));
          $this->description=htmlspecialchars(strip_tags($this->description));
@@ -159,9 +165,11 @@ class events_details{
          $this->venue=htmlspecialchars(strip_tags($this->venue));
          $this->status=htmlspecialchars(strip_tags($this->status));
         
+        
      
          // bind new values
          $stmt->bindParam(":admin_id", $this->admin_id);
+         $stmt->bindParam(":event_id", $this->event_id);
          $stmt->bindParam(":category", $this->category);
          $stmt->bindParam(":event_name", $this->event_name);
          $stmt->bindParam(":description", $this->description);

@@ -19,6 +19,7 @@ if( !empty($data->admin_id)&&
     !empty($data->category)){
         
         $events_details_create->admin_id = $data->admin_id;
+        $events_details_create->event_id = $data->event_id;
         $events_details_create->category = $data->category;
         $events_details_create->event_name = $data->event_name;
         $events_details_create->description = $data->description;
@@ -40,14 +41,14 @@ if( !empty($data->admin_id)&&
         http_response_code(201);
 
     // tell the user
-        echo json_encode(array("status"=> "201"));  
+        echo json_encode(array("status"=> "201","message"=>"Created"));  
     }
     // if unable to create the events_details_create, tell the user
         else{
 
         // set response code - 503 service unavailable
             http_response_code(503);
-            echo json_encode(array("status"=> "503"));
+            echo json_encode(array("status"=> "503","message"=>"503 service unavailable"));
 
 
         // tell the user
@@ -55,7 +56,7 @@ if( !empty($data->admin_id)&&
         }
     }else{
         http_response_code(404);
-        echo json_encode(array("status"=> "404"));
+        echo json_encode(array("status"=> "404","message"=>"data incomplet"));
 
 }
 

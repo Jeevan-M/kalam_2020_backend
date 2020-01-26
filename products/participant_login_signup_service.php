@@ -29,9 +29,6 @@ if( !empty($data->email)&&
     !empty($data->college)&&
     !empty($data->password)&&
     !empty($data->mob_no)){
-        
-    
-    
 
     if ($participant_login_insert->signup($email)){
         $participant_login_insert->Kalam_id=$data->Kalam_id;
@@ -50,33 +47,28 @@ if( !empty($data->email)&&
             http_response_code(201);
         
             // tell the user
-            echo json_encode(array("message" => "participant_login_insert was created."));  
+            echo json_encode(array("status"=>"201","message" => "participant_login_insert was created."));  
             }
             // if unable to create the participant_login_insert, tell the user
             else{
         
                 // set response code - 503 service unavailable
                 http_response_code(503);
-                echo json_encode(array("participant_login_insert" => $participant_login_insert));
-        
                 // tell the user
-                echo json_encode(array("message" => "Unable to create participant_login_insert."));
+                echo json_encode(array("status"=>"503","message" => "Oops! Your Registration is unsuccessfull."));
             }
 
     }else{
-        http_response_code(200);
-        echo json_encode(array("message" => "User already exist."));
+        http_response_code(400);
+        echo json_encode(array("status"=>"400","message" => "User already exist."));
     
     }
-}
-// tell the user data is incomplete
-else{
+}else{
 
-// set response code - 400 bad request
-http_response_code(400);
-
-// tell the user
-echo json_encode(array("message" => "Unable to create participant_login_insert. Data is incomplete."));
+    // set response code - 400 bad request
+    http_response_code(400);
+    // tell the user
+    echo json_encode(array("status"=>"400","message" => "Unable to create participant_login_insert. Data is incomplete."));
 
 }
 ?>

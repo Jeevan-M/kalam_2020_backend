@@ -26,6 +26,7 @@ if($num>0){
         extract($row);
         $product_item=array(
             "admin_id" => $admin_id,
+            "event_id" => $event_id,
             "category" => $category,
             "event_name" => $event_name,
             "description" => $description,
@@ -44,13 +45,13 @@ if($num>0){
         array_push($products_arr["events_details_get"], $product_item);
     }
      http_response_code(200);
-     echo json_encode($products_arr);
+     echo json_encode("status"=>"200","message" => "Get All Event");
 }
  
 else{
     http_response_code(404);
      echo json_encode(
-        array("message" => "No services found.")
+        array("status"=>"404","message" => "No Service Found")
     );
 }
 

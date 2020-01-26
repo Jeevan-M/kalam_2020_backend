@@ -30,6 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             extract($row);
             $product_item=array(
                 "admin_id" => $admin_id,
+                "event_id" => $event_id,
                 "category" => $category,
                 "event_name" => $event_name,
                 "description" => $description,
@@ -48,24 +49,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             array_push($products_arr["events_details_profile"], $product_item);
         }
         http_response_code(200);
-        echo json_encode($products_arr);
+        echo json_encode("status"=>"200","message" => "Get single Event");
     }
     
     else{
         http_response_code(404);
         echo json_encode(
-            array("message" => "No services found.")
+            array("status"=>"404","message" => "No Data Found")
         );
     }
 }
 else{
     http_response_code(404);
-    echo json_encode(
-        array("meta" => array(
-        "code" => "404",
-        "status"=>"Not Found",
-        "DetailedMessage"=> "Client Error"),
-        ));
+    echo json_encode(array("status"=>"404","message" => "Method Error"));
 }
 
 ?>
