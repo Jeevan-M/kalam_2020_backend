@@ -11,6 +11,7 @@ class Registration{
     //object properties
     
     public $Kalam_id;
+    public $event_id;
     public $email;
     public $full_name;
     public $college;
@@ -26,7 +27,7 @@ class Registration{
     public $event_start_time;
     public $event_end_time;
     public $venue;
-
+    
     // constructor with $db as database connection
     public function __construct($db){
         $this->conn = $db;
@@ -45,23 +46,23 @@ class Registration{
        }
 
     
-       function read_one($event_name){
+       function read_one($event_id){
         $query = "SELECT
                        *
                    FROM
                        " . $this->events_registration . "
-                    WHERE  event_name = '".$event_name."'";
+                    WHERE  event_id = '".$event_id."'";
         
            $stmt = $this->conn->prepare($query);
            $stmt->execute();
            return $stmt;
     }
 
-    function event_and_Kalam_id_check($Kalam_id,$event_name){
+    function event_and_Kalam_id_check($Kalam_id,$event_id){
         $query = "SELECT
-                     Kalam_id,event_name
+                     Kalam_id,event_id
                     FROM
-                        " . $this->event_table . ',' .$this->participant_table ." WHERE  Kalam_id = '".$Kalam_id."' AND event_name = '".$event_name."'" ;
+                        " . $this->event_table . ',' .$this->participant_table ." WHERE  Kalam_id = '".$Kalam_id."' AND event_id = '".$event_id."'" ;
         $stmt = $this->conn->prepare($query);
         if($stmt->execute()){
             return true;
@@ -69,9 +70,25 @@ class Registration{
            return false;
     }
 
-    function event_registration($Kalam_id,$event_name){
+    function check_event_count($Kalam_id){
+        $query = "SELECT
+                      COUNT(*) as count
+                   FROM
+                       " . $this->events_registration . "
+                    WHERE  Kalam_id = '".$Kalam_id."'";
+        
+           $stmt = $this->conn->prepare($query);
+           $stmt->execute();
+           $row = $stmt->fetch(PDO::FETCH_ASSOC);
+           return $row['count'];
+    }
+    
+
+
+    function event_registration($Kalam_id,$event_id){
         $query = "SELECT 
         Kalam_id,
+        event_id,
         email,	
         full_name,	
         college,	
@@ -85,7 +102,7 @@ class Registration{
         venue
         
                    FROM
-                       " . $this->event_table . ',' .$this->participant_table ." WHERE  Kalam_id = '".$Kalam_id."' AND event_name = '".$event_name."'" ;
+                       " . $this->event_table . ',' .$this->participant_table ." WHERE  Kalam_id = '".$Kalam_id."' AND event_id = '".$event_id."'" ;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
@@ -98,6 +115,7 @@ class Registration{
          $query = "INSERT INTO    " . $this->events_registration ."
                  SET  
                  Kalam_id=:Kalam_id,
+                 event_id=:event_id,
                  email=:email,	
                  full_name=:full_name,	
                  college=:college,	
@@ -116,6 +134,7 @@ class Registration{
     // sanitize	
     
     $this->Kalam_id=htmlspecialchars(strip_tags($this->Kalam_id));	
+    $this->event_id=htmlspecialchars(strip_tags($this->event_id));	
     $this->email=htmlspecialchars(strip_tags($this->email));	
     $this->full_name=htmlspecialchars(strip_tags($this->full_name));	
     $this->college=htmlspecialchars(strip_tags($this->college));	
@@ -131,6 +150,7 @@ class Registration{
 
     // bind new values	
     $stmt->bindParam(":Kalam_id", $this->Kalam_id);	
+    $stmt->bindParam(":event_id",$this->event_id);
     $stmt->bindParam(":email", $this->email);	
     $stmt->bindParam(":full_name", $this->full_name);	
     $stmt->bindParam(":college", $this->college);	

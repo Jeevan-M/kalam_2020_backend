@@ -15,8 +15,6 @@ $db = $database->getConnection();
 $participant_login_user = new participant_login($db);
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-
     $data = json_decode(file_get_contents("php://input"));
     $email = $data->email;
     $password = $data->password;
@@ -57,7 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 else{
     http_response_code(405);
-    echo json_encode(array("status"=>"405","status"=>"Method Not Allowed"));
+    echo json_encode(array("status"=>"405","message"=>"Method Not Allowed"));
 }
 
 ?>

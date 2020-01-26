@@ -45,14 +45,13 @@ if($num>0){
         array_push($products_arr["events_details_get"], $product_item);
     }
      http_response_code(200);
-     echo json_encode("status"=>"200","message" => "Get All Event");
+     echo json_encode($products_arr);
 }
  
 else{
     http_response_code(404);
      echo json_encode(
-        array("status"=>"404","message" => "No Service Found")
-    );
+        array("status"=>"404","message" => "No Service Found"));
 }
 
 ?>
