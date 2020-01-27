@@ -44,6 +44,5 @@ class Registration{
            $stmt->execute();
            return $stmt;
        }
-
 }
 ?>
