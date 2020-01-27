@@ -41,7 +41,7 @@ if( !empty($data->email)&&
         $participant_login_insert->status = $data->status;
         $participant_login_insert->mob_no = $data->mob_no;
         if($participant_login_insert->create()){
-            $participant_signup_data["participant_signup_data"]=array(); 
+            $participant_signup _data["participant_signup    _data"]=array(); 
             $product_arr = array(
                 "Kalam_id" => $data->Kalam_id,
                 "email" => $data->email,
@@ -50,12 +50,12 @@ if( !empty($data->email)&&
                 "year" => $data->year,
                 "college" => $data->college,
                 "mob_no" => $data->mob_no);
-                array_push($participant_signup_data["participant_signup_data"], $product_arr);
+                array_push($participant_signup  _data["participant_signup _data"], $product_arr);
             // set response code - 201 created
             http_response_code(201);
             
             // tell the user
-            echo json_encode(array("status"=>"201","Data" => $participant_signup_data));  
+            echo json_encode(array("status"=>"201","Data" => $participant_signup    _data));  
             }else{
                 // set response code - 503 service unavailable
                 http_response_code(503);

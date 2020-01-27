@@ -77,7 +77,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     echo json_encode(array("status"=>"201","message" => "Registration Successfull."));  
                             }else{
                                     http_response_code(503);
-                                    echo json_encode(array("status"=>"503","message" => "Unable to  Register the user."));
+                                    echo json_encode(array("status"=>"503","message" => "Unable to  Register the event  ."));
                             }                      
                     }else{
                         http_response_code(204);
