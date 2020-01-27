@@ -61,7 +61,6 @@ class participant_login{
            participant_login.email ='".$email."'
            AND 
            events_registration.email ='".$email."'";
-
            $stmt = $this->conn->prepare($query);
            $stmt->execute();
            return $stmt;

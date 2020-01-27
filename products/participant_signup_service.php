@@ -40,8 +40,6 @@ if( !empty($data->email)&&
         $participant_login_insert->password = $data->password;
         $participant_login_insert->status = $data->status;
         $participant_login_insert->mob_no = $data->mob_no;
-       
-
         if($participant_login_insert->create()){
  
             // set response code - 201 created

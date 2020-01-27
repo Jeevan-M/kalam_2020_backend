@@ -19,23 +19,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $email = $data->email;
     $stmt = $participant_login_profile->read_one($email);
     $num = $stmt->rowCount();
-
     if($num>0){ 
-
-        $products_arr=array();
-        $products_arr["participant_login_profile"]=array();
-    
+        $event_details=array();
+        $participant_profile['participant_profile'] = array();
+        $event_details["event_details"]=array();   
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
             $product_item=array(
-                "Kalam_id" => $Kalam_id,
                 "event_id" => $event_id,
-                "email" => $email,
-                "full_name" => $full_name,
-                "department" => $department,
-                "college" => $college,
-                "year" => $year,
-                "mob_no" => $mob_no,
                 "event_name" => $event_name,
                 "description" => $description,
                 "event_rules" => $event_rules,
@@ -44,12 +35,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 "event_end_time" => $event_end_time,
                 "venue" => $venue
             );
-            array_push($products_arr["participant_login_profile"], $product_item);
+            array_push($event_details["event_details"], $product_item);
+            $participant_profile_array=array(
+                "Kalam_id" => $Kalam_id,
+                "email" => $email,
+                "full_name" => $full_name,
+                "department" => $department,
+                "college" => $college,
+                "year" => $year,
+                "mob_no" => $mob_no,
+                "event" => $event_details 
+            );           
         }
+        array_push( $participant_profile['participant_profile'],$participant_profile_array);
         http_response_code(200);
-        echo json_encode($products_arr);
+        echo json_encode($participant_profile);
     }
-    
     else{
         http_response_code(404);
         echo json_encode(array("status"=>"404","message" => "No services found.")
