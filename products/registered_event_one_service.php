@@ -21,7 +21,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $num = $stmt->rowCount();
     if($num>0){ 
         $event_details=array();
-        $participant_profile['participant_profile'] = array();
         $event_details["event_details"]=array();   
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
@@ -36,20 +35,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 "venue" => $venue
             );
             array_push($event_details["event_details"], $product_item);
-            $participant_profile_array=array(
-                "Kalam_id" => $Kalam_id,
-                "email" => $email,
-                "full_name" => $full_name,
-                "department" => $department,
-                "college" => $college,
-                "year" => $year,
-                "mob_no" => $mob_no,
-                "event" => $event_details 
-            );           
         }
-        array_push( $participant_profile['participant_profile'],$participant_profile_array);
         http_response_code(200);
-        echo json_encode($participant_profile);
+        echo json_encode($event_details);
     }
     else{
         http_response_code(404);
