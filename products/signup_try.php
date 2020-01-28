@@ -11,11 +11,13 @@ include_once '../config/db_connection.php';
 
 // instantiate product object
 include_once '../objects/participant_login.php';
+include_once '../phpmailer/mailer.php';
 
 $database = new Database();
 $db = $database->getConnection();
  
 $participant_login_insert = new participant_login($db);
+$mailer = new Mailer();
  
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
@@ -53,9 +55,11 @@ if( !empty($data->email)&&
                 array_push($participant_signup_data["participant_signup_data"], $product_arr);
             // set response code - 201 created
             http_response_code(201);
-            
             // tell the user
-            echo json_encode(array("status"=>"201","Data" => $participant_signup_data));  
+            echo json_encode(array("status"=>"201","Data" => $participant_signup_data)); 
+            $mailer->to_address = $data->email;
+            $mailer->name = $data->full_name;
+            $mailer->sendMail(); 
             }else{
                 // set response code - 503 service unavailable
                 http_response_code(503);

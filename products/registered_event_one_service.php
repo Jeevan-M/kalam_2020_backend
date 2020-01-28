@@ -37,7 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             array_push($event_details["event_details"], $product_item);
         }
         http_response_code(200);
-        echo json_encode($event_details);
+        echo json_encode(array("status"=>"200","Data"=>$event_details));
     }
     else{
         http_response_code(404);

@@ -84,20 +84,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         echo json_encode(array("status"=>"204","message" => "No Content"));                
                     }
                 }else{
-                        http_response_code(302);
-                        echo json_encode(array("status"=>"302","message" => " found."));
+                        http_response_code(404);
+                        echo json_encode(array("status"=>"404","message" => "Please Register."));
                 }
             }else{
-                http_response_code(302);
-                echo json_encode(array("status"=>"302","message" => " NO found."));
+                http_response_code(404);
+                echo json_encode(array("status"=>"404","message" => " NO found."));
             }  
         }else{
             http_response_code(406);
-            echo json_encode(array("status"=>"406","message" => " You already Registration This Event."));
+            echo json_encode(array("status"=>"406","message" => " You already Registered This Event."));
         }
     }else{
-        http_response_code(302);
-        echo json_encode(array("status"=>"302","message" => " You Registration Limit is Exiced."));
+        http_response_code(406);
+        echo json_encode(array("status"=>"406","message" => " You Registration Limit is Exceeded."));
     }
         
 }else{
