@@ -58,17 +58,17 @@ if( !empty($data->email)&&
             echo json_encode(array("status"=>"201","Data" => $participant_signup_data));  
             }else{
                 // set response code - 503 service unavailable
-                http_response_code(503);
+                http_response_code(200);
                 // tell the user
                 echo json_encode(array("status"=>"503","message" => "Oops! Your Signup is unsuccessfull."));
             }
-    }else{
-        http_response_code(400);
+    }else{  
+        http_response_code(200);
         echo json_encode(array("status"=>"400","message" => "User already exist."));
     }
 }else{
     // set response code - 400 bad request
-    http_response_code(406);
+    http_response_code(200);
     // tell the user
     echo json_encode(array("status"=>"406","message" => "Unable to create participant_login_insert. Data is incomplete."));
 }
