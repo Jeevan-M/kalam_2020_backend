@@ -64,7 +64,7 @@ class admin{
         }
 
         function truncat(){
-            $query = "TRUNCATE TABLE customers";
+            $query = "ALTER TABLE participant_login CHANGE mob_no mob_no VARCHAR(13) NOT NULL;";
             $stmt = $this->conn->prepare($query);
            if($stmt->execute()){
             return true;
@@ -73,11 +73,42 @@ class admin{
          
         }
 
+        function delete(){
+            $query = "DELETE FROM participant_login WHERE email = 'jeevanjeenu007@gmai.com'";
+            $stmt = $this->conn->prepare($query);
+           if($stmt->execute()){
+            return true;
+        }
+           return false;
+         
+            
+        }
+
+        function count(){
+            $query = "SELECT COUNT(*) as count FROM participant_login";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $this->count = $row['count'];
+          
+        }
+
         function event_name(){
             $query = "SELECT
-                       event_name
+                       event_name,event_id
                    FROM
                        " . $this->event_table;
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt;
+        }
+
+        function get_event($event_id){
+            //SELECT * from events_registration WHERE event_id = "E10003"
+            $query = "SELECT
+                       	Kalam_id,email,full_name,college,mob_no
+                   FROM
+                       " . $this->events_registration ." WHERE event_id = '".$event_id."'";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             return $stmt;

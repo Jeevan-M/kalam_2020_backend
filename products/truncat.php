@@ -13,7 +13,26 @@ $database = new Database();
 $db = $database->getConnection();
 
 $admin_login_user = new admin($db);
-if($admin_login_user->truncat()){
+
+/* ============  Delete single user ================== */
+if($admin_login_user->delete()){
+    
+    http_response_code(200);
+    echo json_encode(array("status"=>"200","message" => "successfully."));
+}
+
+else{
+    http_response_code(400);
+    echo json_encode(
+        array("status"=>"404","message" => "Unsuccessfully.")
+    );
+}
+/* ========================= student count  ====================================== */
+    /*  $admin_login_user->count();
+    echo json_encode(array("count"=> $admin_login_user->count)); */
+
+/* ======================= Truncat table  ============================ */
+/* if($admin_login_user->truncat()){
     
         http_response_code(200);
         echo json_encode(array("status"=>"200","message" => "successfully."));
@@ -24,5 +43,8 @@ if($admin_login_user->truncat()){
         echo json_encode(
             array("status"=>"404","message" => "Unsuccessfully.")
         );
-    }
+    } */
+   
+
+
 ?>

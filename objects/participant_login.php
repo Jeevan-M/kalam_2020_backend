@@ -84,7 +84,6 @@ class participant_login{
 
     function create(){	
         // try {	
-
          $query = "INSERT INTO    " . $this->participant_login ."	
                  SET	
                       Kalam_id=:Kalam_id,
@@ -111,7 +110,6 @@ class participant_login{
          $this->status=htmlspecialchars(strip_tags($this->status));	
          $this->mob_no=htmlspecialchars(strip_tags($this->mob_no));	
 
-
          // bind new values	
          $stmt->bindParam(":Kalam_id", $this->Kalam_id);	
          $stmt->bindParam(":email", $this->email);	
@@ -128,8 +126,59 @@ class participant_login{
              return true;	
          }	
             return false;	
-
-
     }
+
+    function update(){
+        
+            // try {	
+             $query = "UPDATE  " . $this->participant_login ."	
+                     SET	
+                          Kalam_id=:Kalam_id,
+                          email=:email,	
+                          full_name=:full_name,	
+                          department=:department,	
+                          year=:year,	
+                          college=:college,	
+                          password=:password,	
+                          status =:status,	
+                          mob_no=:mob_no
+                          WHERE
+                          Kalam_id=:Kalam_id";	
+    
+             $stmt = $this->conn->prepare($query);	
+    
+             // sanitize	
+             
+             
+             $this->email=htmlspecialchars(strip_tags($this->email));	
+             $this->full_name=htmlspecialchars(strip_tags($this->full_name));	
+             $this->department=htmlspecialchars(strip_tags($this->department));	
+             $this->year=htmlspecialchars(strip_tags($this->year));	
+             $this->college=htmlspecialchars(strip_tags($this->college));	
+             $this->password=htmlspecialchars(strip_tags($this->password));	
+             $this->status=htmlspecialchars(strip_tags($this->status));	
+             $this->mob_no=htmlspecialchars(strip_tags($this->mob_no));	
+             $this->Kalam_id=htmlspecialchars(strip_tags($this->Kalam_id));	
+    
+             // bind new values	
+             	
+             $stmt->bindParam(":email", $this->email);	
+             $stmt->bindParam(":full_name", $this->full_name);	
+             $stmt->bindParam(":department", $this->department);	
+             $stmt->bindParam(":year", $this->year);	
+             $stmt->bindParam(":college", $this->college);	
+             $stmt->bindParam(':password', $this->password);	
+             $stmt->bindParam(":status", $this->status);	
+             $stmt->bindParam(":mob_no", $this->mob_no);	
+             $stmt->bindParam(":Kalam_id", $this->Kalam_id);
+    
+             // execute query	
+             if($stmt->execute()){	
+                 return $stmt;	
+             }	
+                return false;
+    }
+
+
 }
 ?>
