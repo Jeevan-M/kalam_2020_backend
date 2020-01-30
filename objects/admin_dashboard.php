@@ -1,12 +1,13 @@
 <?php
 
-class Registration{
+class admin{
 
     // Database Connection
     private $conn;
     private $events_registration = 'events_registration';
     private $event_table = 'event_details';
     private $participant_table = 'participant_login';
+    private $department_admin = 'department_admin';
 
     //object properties
     
@@ -44,5 +45,44 @@ class Registration{
            $stmt->execute();
            return $stmt;
        }
+    
+       function login($email,$password){
+
+        $query = "SELECT
+                       *
+                   FROM
+                       " . $this->department_admin . "
+                    WHERE  email_id = '".$email."'
+                    AND password = '".$password."'";
+        
+           $stmt = $this->conn->prepare($query);
+           if($stmt->execute()){
+            return true;
+        }
+           return false;
+         
+        }
+
+        function truncat(){
+            $query = "TRUNCATE TABLE customers";
+            $stmt = $this->conn->prepare($query);
+           if($stmt->execute()){
+            return true;
+        }
+           return false;
+         
+        }
+
+        function event_name(){
+            $query = "SELECT
+                       event_name
+                   FROM
+                       " . $this->event_table;
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt;
+        }
+
 }
+
 ?>
