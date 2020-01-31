@@ -56,15 +56,14 @@ class admin{
                     AND password = '".$password."'";
         
            $stmt = $this->conn->prepare($query);
-           if($stmt->execute()){
-            return true;
-        }
-           return false;
-         
+           $stmt->execute();
+           $row = $stmt->fetch(PDO::FETCH_ASSOC);
+           $this->email_id = $row['email_id'];
+           $this->password = $row['password'];   
         }
 
         function truncat(){
-            $query = "ALTER TABLE participant_login CHANGE mob_no mob_no VARCHAR(13) NOT NULL;";
+            $query = "ALTER TABLE `events_registration` CHANGE `mob_no` `mob_no` VARCHAR(13) NOT NULL";
             $stmt = $this->conn->prepare($query);
            if($stmt->execute()){
             return true;
@@ -74,7 +73,7 @@ class admin{
         }
 
         function delete(){
-            $query = "DELETE FROM participant_login WHERE email = 'jeevanjeenu007@gmai.com'";
+            $query = "DELETE FROM events_registration WHERE email = 'rupesh.maxpani@gmail.com'";
             $stmt = $this->conn->prepare($query);
            if($stmt->execute()){
             return true;
@@ -109,6 +108,17 @@ class admin{
                        	Kalam_id,email,full_name,college,mob_no
                    FROM
                        " . $this->events_registration ." WHERE event_id = '".$event_id."'";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt;
+        }
+
+        function admin_get(){
+            $query = "SELECT
+                    *
+                FROM
+                " . $this->department_admin;
+
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             return $stmt;

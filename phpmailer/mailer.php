@@ -21,14 +21,14 @@ class Mailer{
           $mail->isSMTP();                                            // Send using SMTP
           $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
           $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-          $mail->Username = 'enroloenrolo@gmail.com';                   // SMTP username
-          $mail->Password = 'enrolo@123';               // SMTP password
+          $mail->Username = 'Kalam2020siet@gmail.com';                   // SMTP username
+          $mail->Password = 'Kalam@siet';               // SMTP password
           $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
           $mail->Port       = 587;                                    // TCP port to connect to
           $mail->CharSet = "utf-8";
 
           //Recipients
-          $mail->setFrom('enroloenrolo@gmail.com', 'Kalam2020');
+          $mail->setFrom('Kalam2020siet@gmail', 'Kalam2020');
           $mail->addAddress($this->to_address, $this->name);     // Add a recipient
           /* $mail->addAddress('ellen@example.com');               // Name is optional
           $mail->addReplyTo('info@example.com', 'Information');
@@ -45,8 +45,11 @@ class Mailer{
           $mail->Body    = $this->createMail();
         //  $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-          $mail->send();
-
+          if($mail->send()){
+            echo "mail send";
+          }else{
+            echo "error";
+          }
       } catch (Exception $e) {
         http_response_code(500);
         echo json_encode( array( "code" => "500", "status"=>"failed", "DetailedMessage"=> $mail->ErrorInfo));

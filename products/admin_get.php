@@ -12,37 +12,29 @@ include_once '../objects/admin_dashboard.php';
 $database = new Database();
 $db = $database->getConnection();
 
-$admin_event_registration_get = new admin($db);
-$data = json_decode(file_get_contents("php://input"));
-$event_id = $data->event_id;
-$stmt = $admin_event_registration_get->get_event($event_id);
+$admin_get = new admin($db);
+$stmt = $admin_get->admin_get();
 $num = $stmt->rowCount();
 
 if($num>0){ 
 
     $products_arr=array();
-    $products_arr["admin_event_registration_get"]=array();
+    $products_arr["admin_get"]=array();
  
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         extract($row);
         $product_item=array(
-            "Kalam_id" =>$Kalam_id,
-            "email" => $email,
-            "full_name" => $full_name,
-            "college" => $college,
-            "mob_no" => $mob_no
+            "admin_id" =>$admin_id,
+            "email_id" => $email_id,
+            "password" => $password
         );
-        array_push($products_arr["admin_event_registration_get"], $product_item);
+        array_push($products_arr["admin_get"], $product_item);
     }
      http_response_code(200);
      echo json_encode($products_arr);
 }
- 
 else{
-    http_response_code(200);
-     echo json_encode(
-        array("status"=>"404","message" => "No services found.")
-    );
+    http_response_code(405);
+    echo json_encode(array("status"=>"405","message"=>"no event"));
 }
-
 ?>

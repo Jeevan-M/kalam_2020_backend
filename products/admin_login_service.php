@@ -18,10 +18,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $data = json_decode(file_get_contents("php://input"));
     $email = $data->email_id;
     $password = $data->password;
-    if($admin_login_user->login($email,$password)){
+    $admin_login_user->login($email,$password);
+    $get_mail = $admin_login_user->email_id;
+    $get_password = $admin_login_user->password;
+    if($get_mail === $email || $get_password === $password){
     
         http_response_code(200);
-        echo json_encode(array("status"=>"200","message" => "Login successfully."));
+        echo json_encode(array("status"=>"200","message" => "Login successfully.","username"=>$email));
     }
 
     else{

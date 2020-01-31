@@ -15,33 +15,27 @@ include_once '../objects/participant_login.php';
 $database = new Database();
 $db = $database->getConnection();
  
-$participant_login_update = new participant_login($db);
+$participant_password_change = new participant_login($db);
  
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
- $participant_login_update->Kalam_id=$data->Kalam_id;
-$participant_login_update->email = $data->email;
-$participant_login_update->full_name = $data->full_name;
-$participant_login_update->department = $data->department;
-$participant_login_update->year = $data->year;
-$participant_login_update->college = $data->college;
-$participant_login_update->status = 1;
-$participant_login_update->mob_no = $data->mob_no;
 
+$participant_password_change->email = $data->email;
+$participant_password_change->password = $data->password;
 
-if($participant_login_update->update()){
+if($participant_password_change->password_change()){
      // set response code - 200 ok
     http_response_code(200);
-    $participant_login_update->update_number();
+    
     // tell the user
-    echo json_encode(array("status"=>"200","message" => "Profile Details updated."));
+    echo json_encode(array("message" => "participant_password_change was updated."));
 }else{
  
     // set response code - 503 service unavailable
     http_response_code(503);
     // tell the user
-    echo json_encode(array("status"=>"503","message" => "Unable to Update Profile Details."));
+    echo json_encode(array("message" => "Unable to update participant_password_change."));
 }
         
 ?>

@@ -14,12 +14,12 @@ include_once '../phpmailer/mailer.php';
 $Mail_trigger = new Mailer();
  
 // get posted data
-/* $data = json_decode(file_get_contents("php://input")); */
+ $data = json_decode(file_get_contents("php://input")); 
 
 
+$Mail_trigger->to_address = $data->email;
 
-
-$Mail_trigger->to_address = 'jeevanjeenu007@gmail.com';
+$Mail_trigger->name = $data->name;
 
 /* $Mail_trigger->to_address = 'raghulrage@gmail.com';
 $Mail_trigger->name = 'raghul'; */
